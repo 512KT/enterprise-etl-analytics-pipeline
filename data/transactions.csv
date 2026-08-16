@@ -1,0 +1,6 @@
+transaction_id,customer_id,amount,currency, status
+101,1,250,USD,completed
+102,2,1200,USD,completed
+103,3,,USD,failed
+104,4,500,USD,pending
+105,2,700,USD,completed
