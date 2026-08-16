@@ -300,6 +300,10 @@ output/transaction_quality.png
 
 ## Logging
 
+---
+
+## Logging
+
 The ETL pipeline includes execution logging to provide basic operational visibility.
 
 Pipeline events are recorded in:
