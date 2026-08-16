@@ -2,95 +2,100 @@
 
 ## Overview
 
-Built an end-to-end enterprise-style ETL and analytics pipeline using Python, Pandas, SQL, SQLite, Pytest, and Matplotlib.
+Built an end-to-end enterprise-style ETL and analytics pipeline using Python, Pandas, SQL, SQLite, Pytest, Matplotlib, and Git/GitHub.
 
 The project demonstrates how raw operational data can be extracted, transformed, validated, enriched, loaded into a structured data warehouse, tested, and converted into business-oriented analytics.
 
 The pipeline processes intentionally generated synthetic enterprise data containing:
 
-- 500 customers
-- 2,000 transactions
-- 50 products
-- 2,000 enriched transaction records
+* 500 customers
+* 2,000 transactions
+* 50 products
+* 2,000 enriched transaction records
 
-The source data intentionally contains data-quality issues so the pipeline can demonstrate automated detection, validation, and reporting.
+The source data intentionally contains data-quality issues so the pipeline can demonstrate automated detection, validation, reporting, and downstream analysis.
 
 ---
 
 ## Architecture
 
-    Synthetic Source Data
-            |
-            v
-       Data Extraction
-            |
-            v
-       Data Transformation
-            |
-            v
-     Data Quality Validation
-            |
-            v
-     SQLite Data Warehouse
-            |
-       +----+----+
-       |         |
-       v         v
-    Testing   Analytics
-                 |
-            +----+----+
-            |         |
-            v         v
-           KPIs   Visualization
+```text
+Synthetic Source Data
+        |
+        v
+   Data Extraction
+        |
+        v
+   Data Transformation
+        |
+        v
+ Data Quality Validation
+        |
+        v
+ SQLite Data Warehouse
+        |
+   +----+----+
+   |         |
+   v         v
+ Testing   Analytics
+             |
+        +----+----+
+        |         |
+        v         v
+       KPIs   Visualization
+```
 
 ---
 
 ## Technology Stack
 
-| Technology | Purpose |
-|---|---|
-| Python | ETL pipeline development and automation |
-| Pandas | Data transformation and analysis |
-| SQL | Data querying and analytical calculations |
-| SQLite | Source database and data warehouse |
-| Pytest | Automated testing |
-| Matplotlib | Data visualization |
-| Git/GitHub | Version control and project documentation |
+| Technology | Purpose                                       |
+| ---------- | --------------------------------------------- |
+| Python     | ETL pipeline development and automation       |
+| Pandas     | Data transformation and analysis              |
+| SQL        | Data querying and analytical calculations     |
+| SQLite     | Relational source database and data warehouse |
+| Pytest     | Automated pipeline testing                    |
+| Matplotlib | Data visualization                            |
+| Git/GitHub | Version control and project documentation     |
 
 ---
 
 ## Project Structure
 
-    enterprise_etl_project/
-    |
-    ├── data_quality/
-    |   └── quality_checks.py
-    |
-    ├── etl_pipeline/
-    |   ├── extract.py
-    |   ├── transform.py
-    |   ├── load.py
-    |   └── run_pipeline.py
-    |
-    ├── scripts/
-    |   ├── generate_data.py
-    |   ├── run_quality_checks.py
-    |   ├── kpi_dashboard.py
-    |   └── data_visualization.py
-    |
-    ├── tests/
-    |   └── test_pipeline.py
-    |
-    ├── output/
-    |   ├── data_quality_report.csv
-    |   └── transaction_quality.png
-    |
-    ├── logs/
-    |   └── pipeline.log
-    |
-    ├── source.db
-    ├── warehouse.db
-    └── README.md
+```text
+enterprise_etl_project/
+|
+├── data_quality/
+|   └── quality_checks.py
+|
+├── etl_pipeline/
+|   ├── extract.py
+|   ├── transform.py
+|   ├── load.py
+|   └── run_pipeline.py
+|
+├── scripts/
+|   ├── generate_data.py
+|   ├── run_quality_checks.py
+|   ├── kpi_dashboard.py
+|   └── data_visualization.py
+|
+├── tests/
+|   └── test_pipeline.py
+|
+├── output/
+|   ├── data_quality_report.csv
+|   ├── enterprise_analytics_dashboard.png
+|   └── transaction_quality.png
+|
+├── logs/
+|   └── pipeline.log
+|
+├── source.db
+├── warehouse.db
+└── README.md
+```
 
 ---
 
@@ -100,7 +105,7 @@ The source data intentionally contains data-quality issues so the pipeline can d
 
 The extraction layer reads customer, transaction, and product data from SQLite into Pandas DataFrames.
 
-The pipeline separates data extraction from downstream transformation and loading, allowing each stage of the ETL process to be developed and tested independently.
+The pipeline separates extraction from transformation and loading, allowing each stage to be developed, executed, and tested independently.
 
 ### Transform
 
@@ -108,36 +113,36 @@ The transformation layer prepares source data for analytics and data warehousing
 
 Transformations include:
 
-- Data validation
-- Data cleaning
-- Data-quality indicator creation
-- Transaction enrichment
-- Customer and product joins
-- Preparation of analytics-ready datasets
+* Data validation
+* Data cleaning
+* Data-quality indicator creation
+* Transaction enrichment
+* Customer and product joins
+* Preparation of analytics-ready datasets
 
-Transaction records are enriched with related customer and product information to create a combined analytical dataset.
+Transaction records are enriched with related customer and product information to create a combined analytical dataset containing 2,000 enriched transaction records.
 
 ### Load
 
-The loading layer writes transformed datasets into a structured SQLite data warehouse.
+The loading layer writes processed datasets into a structured SQLite data warehouse.
 
 The warehouse contains staging, dimension, and fact tables.
 
 #### Staging Tables
 
-- stg_customers
-- stg_transactions
-- stg_products
+* `stg_customers`
+* `stg_transactions`
+* `stg_products`
 
 #### Dimension Tables
 
-- dim_customers
-- dim_products
+* `dim_customers`
+* `dim_products`
 
 #### Fact Tables
 
-- fact_transactions
-- fact_transaction_customer
+* `fact_transactions`
+* `fact_transaction_customer`
 
 This structure demonstrates fundamental data-warehouse concepts by separating staging data from analytical dimensions and transactional facts.
 
@@ -145,27 +150,33 @@ This structure demonstrates fundamental data-warehouse concepts by separating st
 
 ## Data Quality Framework
 
-The project includes an automated data-quality framework designed to identify problematic records before they are used for analysis.
+The project includes an automated data-quality framework designed to identify problematic records before they are used for downstream analysis.
 
-Automated validation checks include:
+The framework performs 24 individual validation checks across customer, transaction, and product data.
 
-- NULL value detection
-- Duplicate record detection
-- Invalid transaction amount detection
-- Invalid product price detection
+Automated checks include:
+
+* NULL value detection
+* Duplicate record detection
+* Invalid transaction amount detection
+* Invalid product price detection
 
 The generated source data intentionally contains invalid records.
 
-The quality framework identified:
+The final quality run identified:
 
-- 22 transactions with invalid amounts
-- 2 products with invalid prices
+* 22 transactions with invalid amounts
+* 2 products with invalid prices
+* All tested NULL checks passed
+* All tested duplicate checks passed
 
 The pipeline reports these issues rather than silently removing the records, allowing data-quality problems to be identified and investigated.
 
 Quality results are exported to:
 
-    output/data_quality_report.csv
+```text
+output/data_quality_report.csv
+```
 
 ---
 
@@ -173,17 +184,24 @@ Quality results are exported to:
 
 The project uses Pytest to validate important parts of the pipeline.
 
-Tests cover:
+The test suite verifies:
 
-- Transformation output
-- Transaction data
-- Product data
+* Transformation output
+* Transaction data
+* Product data
+* Expected non-empty pipeline results
 
-The automated test suite helps verify that core pipeline outputs meet expected conditions.
+The final automated test run:
+
+```text
+4 passed
+```
 
 Run the tests with:
 
-    python3 -m pytest
+```bash
+python3 -m pytest
+```
 
 ---
 
@@ -193,82 +211,100 @@ SQL is used throughout the project to query source and warehouse data and suppor
 
 The project supports analysis including:
 
-- Customer counts
-- Transaction counts
-- Revenue calculations
-- Average transaction value
-- Data-quality analysis
-- Product analysis
-- Transaction-status analysis
+* Customer counts
+* Transaction counts
+* Revenue calculations
+* Average transaction value
+* Data-quality analysis
+* Product analysis
+* Transaction-status analysis
+* Aggregations and grouped analysis
+* Relational joins
 
-The warehouse structure provides organized staging, dimension, and fact tables for analytical queries.
+The warehouse structure provides organized staging, dimension, and fact tables for downstream analytical queries.
 
 ---
 
 ## KPI Reporting
 
-The project includes a Python-based KPI reporting script that generates business-oriented metrics from the data.
+The project includes a Python-based KPI reporting script that generates business-oriented metrics from the processed data.
 
-Reported KPIs include:
+The final pipeline produces:
 
-- Total customers
-- Total transactions
-- Valid transactions
-- Invalid transactions
-- Total revenue
-- Average transaction value
-- Total products
+* Total customers: **500**
+* Total transactions: **2,000**
+* Valid transactions: **1,978**
+* Invalid transactions: **22**
+* Total transaction amount: **$2,501,720.60**
+* Average transaction value: **$1,264.77**
+* Total products: **50**
 
 Run the KPI report with:
 
-    python3 scripts/kpi_dashboard.py
+```bash
+python3 scripts/kpi_dashboard.py
+```
 
 ---
 
 ## Data Visualization
 
-The project uses Matplotlib to generate analytical visualizations from the processed data.
+The project uses Matplotlib to convert processed warehouse data into business-oriented analytical visualizations.
 
-The current visualization output is saved to:
+### Enterprise Analytics Dashboard
 
-    output/transaction_quality.png
+The dashboard summarizes key analytical results from the processed dataset, including transaction and business metrics.
 
-The visualization demonstrates the ability to convert processed data into a visual analytical output for easier interpretation.
+![Enterprise Analytics Dashboard](output/enterprise_analytics_dashboard.png)
+
+### Transaction Quality
+
+This visualization highlights transaction data-quality results, including valid and invalid transaction records.
+
+![Transaction Quality](output/transaction_quality.png)
+
+Generated visualization files:
+
+```text
+output/enterprise_analytics_dashboard.png
+output/transaction_quality.png
 
 ---
 
 ## Logging
 
-The ETL pipeline includes execution logging.
+The ETL pipeline includes execution logging to provide basic operational visibility.
 
 Pipeline events are recorded in:
 
-    logs/pipeline.log
+```text
+logs/pipeline.log
+```
 
 The log records major execution stages including:
 
-- Pipeline start
-- Data extraction
-- Transformation completion
-- Warehouse loading
-- Pipeline completion
+* Pipeline start
+* Data extraction
+* Transformation completion
+* Warehouse loading
+* Pipeline completion
 
-Logging provides basic operational visibility into pipeline execution and helps identify where failures occur.
+Logging provides visibility into pipeline execution and helps identify where failures occur.
 
 ---
 
 ## Data Warehouse
 
-The SQLite warehouse stores the processed datasets used for downstream analytics.
+The SQLite warehouse stores processed datasets used for downstream analytics.
 
-The warehouse contains:
+The final warehouse contains:
 
-- 500 customers
-- 2,000 transactions
-- 50 products
-- 2,000 enriched transaction records
+* 500 customer records
+* 2,000 transaction records
+* 50 product records
+* 2,000 enriched transaction records
 
-The warehouse design separates operational staging data from analytical dimensions and facts, providing a foundation for downstream reporting and analysis.
+The warehouse design separates operational staging data from analytical dimensions and facts, providing a structured foundation for reporting and analysis.
 
 ---
 
@@ -278,27 +314,39 @@ The project includes a synthetic data-generation script so the pipeline can be r
 
 ### Generate Source Data
 
-    python3 scripts/generate_data.py
+```bash
+python3 scripts/generate_data.py
+```
 
 ### Run the ETL Pipeline
 
-    python3 -m etl_pipeline.run_pipeline
+```bash
+python3 -m etl_pipeline.run_pipeline
+```
 
 ### Run Data-Quality Checks
 
-    python3 -m scripts.run_quality_checks
+```bash
+python3 -m scripts.run_quality_checks
+```
 
 ### Run Automated Tests
 
-    python3 -m pytest
+```bash
+python3 -m pytest
+```
 
 ### Generate KPI Report
 
-    python3 scripts/kpi_dashboard.py
+```bash
+python3 scripts/kpi_dashboard.py
+```
 
-### Generate Visualization
+### Generate Visualizations
 
-    python3 scripts/data_visualization.py
+```bash
+python3 scripts/data_visualization.py
+```
 
 ---
 
@@ -306,62 +354,63 @@ The project includes a synthetic data-generation script so the pipeline can be r
 
 ### Data Engineering
 
-- ETL pipeline development
-- Data extraction
-- Data transformation
-- Data enrichment
-- Data validation
-- Data warehousing
-- Staging tables
-- Dimension tables
-- Fact tables
-- Pipeline automation
+* ETL pipeline development
+* Data extraction
+* Data transformation
+* Data enrichment
+* Data validation
+* Data warehousing
+* Staging tables
+* Dimension tables
+* Fact tables
+* Pipeline automation
 
 ### Python
 
-- Python programming
-- Pandas
-- DataFrame operations
-- Modular Python development
-- Functions
-- Database interaction
-- Pipeline scripting
+* Python programming
+* Pandas
+* DataFrame operations
+* Modular Python development
+* Functions
+* Database interaction
+* Pipeline scripting
 
 ### SQL & Databases
 
-- SQL querying
-- SQLite
-- Relational data modeling
-- Filtering
-- Aggregations
-- Grouping
-- Joins
-- Data warehouse table design
+* SQL querying
+* SQLite
+* Relational data modeling
+* Filtering
+* Aggregations
+* Grouping
+* Joins
+* Data warehouse table design
 
 ### Data Quality
 
-- NULL validation
-- Duplicate detection
-- Business-rule validation
-- Invalid-record detection
-- Automated quality reporting
+* NULL validation
+* Duplicate detection
+* Business-rule validation
+* Invalid-record detection
+* Automated quality reporting
 
 ### Analytics
 
-- KPI development
-- Revenue analysis
-- Customer analysis
-- Product analysis
-- Transaction analysis
-- Data visualization
+* KPI development
+* Revenue analysis
+* Customer analysis
+* Product analysis
+* Transaction analysis
+* Data visualization
 
 ### Software Engineering Practices
 
-- Automated testing with Pytest
-- Pipeline logging
-- Modular project structure
-- Reproducible execution
-- Git/GitHub version control
+* Automated testing with Pytest
+* Pipeline logging
+* Modular project structure
+* Reproducible execution
+* Git/GitHub version control
+* Separation of pipeline stages
 
 ---
 
@@ -373,11 +422,16 @@ The result is a reproducible enterprise-style pipeline that transforms raw opera
 
 The project provides practical experience across:
 
-- Data engineering
-- Python development
-- SQL
-- Data quality
-- Data warehousing
-- Automated testing
-- Business analytics
-- Data visualization
+* Data engineering
+* Python development
+* SQL
+* Data quality
+* Data warehousing
+* Automated testing
+* Business analytics
+* Data visualization
+* Software engineering practices
+
+**Project scale:** 500 customers, 2,000 transactions, 50 products, and 2,000 enriched transaction records.
+
+**Final test status:** 4 automated tests passing.
