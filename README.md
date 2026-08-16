@@ -120,8 +120,7 @@ enterprise_etl_project/
 |   └── test_pipeline.py
 |
 ├── .gitignore
-├── README.md
-
+└── README.md
 ```
 
 ---
@@ -282,13 +281,13 @@ The project uses Matplotlib to convert processed warehouse data into business-or
 
 The dashboard summarizes key analytical results from the processed dataset, including transaction and business metrics.
 
-![Enterprise Analytics Dashboard](output/enterprise_analytics_dashboard.png)
+![Enterprise Analytics Dashboard](./output/enterprise_analytics_dashboard.png)
 
 ### Transaction Quality
 
 This visualization highlights transaction data-quality results, including valid and invalid transaction records.
 
-![Transaction Quality](output/transaction_quality.png)
+![Transaction Quality](./output/transaction_quality.png)
 
 Generated visualization files:
 
