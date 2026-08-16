@@ -78,9 +78,6 @@ Synthetic Source Data
 ## Project Structure
 
 ```text
-## Project Structure
-
-```text
 enterprise_etl_project/
 |
 ├── data/
@@ -124,8 +121,7 @@ enterprise_etl_project/
 |
 ├── .gitignore
 ├── README.md
-├── source.db
-└── warehouse.db
+
 ```
 
 ---
