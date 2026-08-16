@@ -108,7 +108,6 @@ enterprise_etl_project/
 |
 ├── scripts/
 |   ├── data_visualization.py
-|   ├── etl_pipeline.py
 |   ├── generate_data.py
 |   ├── kpi_dashboard.py
 |   └── run_quality_checks.py
