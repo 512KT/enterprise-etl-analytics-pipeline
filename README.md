@@ -2,7 +2,7 @@
 
 ## Overview
 
-Built an end-to-end enterprise-style ETL and analytics pipeline using Python, Pandas, SQL, SQLite, Pytest, Matplotlib, and Git/GitHub.
+Built an end-to-end ETL and analytics pipeline that extracts, transforms, validates, enriches, and loads synthetic enterprise data into a structured SQLite data warehouse, with automated data-quality checks, testing, KPI reporting, visualization, and execution logging.
 
 The project demonstrates how raw operational data can be extracted, transformed, validated, enriched, loaded into a structured data warehouse, tested, and converted into business-oriented analytics.
 
@@ -14,6 +14,20 @@ The pipeline processes intentionally generated synthetic enterprise data contain
 * 2,000 enriched transaction records
 
 The source data intentionally contains data-quality issues so the pipeline can demonstrate automated detection, validation, reporting, and downstream analysis.
+
+---
+
+## Key Results
+
+- Processed 500 customers, 2,000 transactions, and 50 products through the ETL pipeline.
+- Generated 2,000 enriched transaction records for downstream analytics.
+- Implemented 24 automated data-quality checks across customer, transaction, and product datasets.
+- Detected 22 invalid transaction amounts and 2 invalid product prices.
+- Built staging, dimension, and fact tables in a SQLite data warehouse.
+- Automated pipeline validation with Pytest, with 4 tests passing.
+- Generated KPI reporting including revenue, transaction volume, customer counts, and average transaction value.
+- Produced analytical visualizations using Matplotlib.
+- Implemented execution logging for pipeline monitoring and reproducibility.
 
 ---
 
@@ -64,37 +78,54 @@ Synthetic Source Data
 ## Project Structure
 
 ```text
+## Project Structure
+
+```text
 enterprise_etl_project/
+|
+├── data/
+|   ├── customers.csv
+|   ├── products.csv
+|   └── transactions.csv
 |
 ├── data_quality/
 |   └── quality_checks.py
 |
+├── docs/
+|   └── architecture.md
+|
 ├── etl_pipeline/
+|   ├── __init__.py
 |   ├── extract.py
 |   ├── transform.py
 |   ├── load.py
 |   └── run_pipeline.py
 |
-├── scripts/
-|   ├── generate_data.py
-|   ├── run_quality_checks.py
-|   ├── kpi_dashboard.py
-|   └── data_visualization.py
-|
-├── tests/
-|   └── test_pipeline.py
+├── logs/
+|   └── pipeline.log
 |
 ├── output/
 |   ├── data_quality_report.csv
 |   ├── enterprise_analytics_dashboard.png
 |   └── transaction_quality.png
 |
-├── logs/
-|   └── pipeline.log
+├── scripts/
+|   ├── data_visualization.py
+|   ├── etl_pipeline.py
+|   ├── generate_data.py
+|   ├── kpi_dashboard.py
+|   └── run_quality_checks.py
 |
+├── sql/
+|   └── analytics_queries.sql
+|
+├── tests/
+|   └── test_pipeline.py
+|
+├── .gitignore
+├── README.md
 ├── source.db
-├── warehouse.db
-└── README.md
+└── warehouse.db
 ```
 
 ---
@@ -268,6 +299,7 @@ Generated visualization files:
 ```text
 output/enterprise_analytics_dashboard.png
 output/transaction_quality.png
+```
 
 ---
 
